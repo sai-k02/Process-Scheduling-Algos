@@ -1,0 +1,15 @@
+[2]
+What are activities?
+What do we mean by splitting up the process into a series of activities via a qeueu?
+Will each process get their own queue? 
+Are the events something we populate before hand, for the simulation?
+What are ties? 
+How are ties handled?
+- You must pick either the one that has a higher event type or has a higher process id?
+
+When we set the time to the next event, when do we increment time, when the process is completely done? 
+
+When we reduce the time quantum of a CPU activity, do we change the actual text in the file? 
+
+What is the Average Response Time?
+- For average response time, we keep track of all the points in which the process is waiting for the CPU aka in the ready state

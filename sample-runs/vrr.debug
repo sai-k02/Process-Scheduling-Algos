@@ -1,0 +1,194 @@
+At time 0, ARRIVE Event for Process 0
+Dispatch 0
+At time 3, ARRIVE Event for Process 1
+At time 3, TIMEOUT Event for Process 0
+Dispatch 1
+At time 6, TIMEOUT Event for Process 1
+Dispatch 0
+At time 7, ARRIVE Event for Process 2
+At time 9, TIMEOUT Event for Process 0
+Dispatch 1
+At time 11, ARRIVE Event for Process 3
+At time 12, TIMEOUT Event for Process 1
+Dispatch 2
+At time 15, BLOCK Event for Process 2
+Dispatch 0
+At time 17, UNBLOCK Event for Process 2
+At time 18, TIMEOUT Event for Process 0
+Dispatch 3
+At time 21, TIMEOUT Event for Process 3
+Dispatch 1
+At time 24, TIMEOUT Event for Process 1
+Dispatch 2
+At time 26, BLOCK Event for Process 2
+Dispatch 0
+At time 27, UNBLOCK Event for Process 2
+At time 27, BLOCK Event for Process 0
+Dispatch 2
+At time 28, TIMEOUT Event for Process 2
+Dispatch 3
+At time 30, UNBLOCK Event for Process 0
+At time 31, TIMEOUT Event for Process 3
+Dispatch 0
+At time 33, TIMEOUT Event for Process 0
+Dispatch 1
+At time 36, TIMEOUT Event for Process 1
+Dispatch 2
+At time 38, BLOCK Event for Process 2
+Dispatch 3
+At time 39, UNBLOCK Event for Process 2
+At time 41, TIMEOUT Event for Process 3
+Dispatch 2
+At time 42, TIMEOUT Event for Process 2
+Dispatch 0
+At time 45, TIMEOUT Event for Process 0
+Dispatch 1
+At time 48, TIMEOUT Event for Process 1
+Dispatch 3
+At time 49, BLOCK Event for Process 3
+Dispatch 2
+At time 50, BLOCK Event for Process 2
+Dispatch 0
+At time 53, TIMEOUT Event for Process 0
+Dispatch 1
+At time 55, UNBLOCK Event for Process 2
+At time 56, TIMEOUT Event for Process 1
+Dispatch 2
+At time 57, EXIT Event for Process 2
+Dispatch 0
+At time 59, BLOCK Event for Process 0
+Dispatch 1
+At time 62, TIMEOUT Event for Process 1
+Dispatch 1
+At time 63, UNBLOCK Event for Process 0
+At time 65, TIMEOUT Event for Process 1
+Dispatch 0
+At time 66, TIMEOUT Event for Process 0
+Dispatch 1
+At time 69, UNBLOCK Event for Process 3
+At time 69, TIMEOUT Event for Process 1
+Dispatch 3
+At time 71, TIMEOUT Event for Process 3
+Dispatch 0
+At time 72, EXIT Event for Process 0
+Dispatch 1
+At time 75, TIMEOUT Event for Process 1
+Dispatch 3
+At time 78, TIMEOUT Event for Process 3
+Dispatch 1
+At time 81, TIMEOUT Event for Process 1
+Dispatch 3
+At time 84, TIMEOUT Event for Process 3
+Dispatch 1
+At time 87, TIMEOUT Event for Process 1
+Dispatch 3
+At time 90, ARRIVE Event for Process 4
+At time 90, TIMEOUT Event for Process 3
+Dispatch 1
+At time 93, TIMEOUT Event for Process 1
+Dispatch 4
+At time 96, BLOCK Event for Process 4
+Dispatch 3
+At time 98, UNBLOCK Event for Process 4
+At time 99, TIMEOUT Event for Process 3
+Dispatch 1
+At time 102, TIMEOUT Event for Process 1
+Dispatch 4
+At time 104, BLOCK Event for Process 4
+Dispatch 3
+At time 105, UNBLOCK Event for Process 4
+At time 107, TIMEOUT Event for Process 3
+Dispatch 4
+At time 108, TIMEOUT Event for Process 4
+Dispatch 1
+At time 111, TIMEOUT Event for Process 1
+Dispatch 3
+At time 114, EXIT Event for Process 3
+Dispatch 4
+At time 116, BLOCK Event for Process 4
+Dispatch 1
+At time 117, UNBLOCK Event for Process 4
+At time 119, TIMEOUT Event for Process 1
+Dispatch 4
+At time 120, TIMEOUT Event for Process 4
+Dispatch 1
+At time 123, TIMEOUT Event for Process 1
+Dispatch 4
+At time 124, BLOCK Event for Process 4
+Dispatch 1
+At time 127, TIMEOUT Event for Process 1
+Dispatch 1
+At time 129, UNBLOCK Event for Process 4
+At time 130, TIMEOUT Event for Process 1
+Dispatch 4
+At time 131, EXIT Event for Process 4
+Dispatch 1
+At time 134, TIMEOUT Event for Process 1
+Dispatch 1
+At time 137, TIMEOUT Event for Process 1
+Dispatch 1
+At time 140, TIMEOUT Event for Process 1
+Dispatch 1
+At time 143, TIMEOUT Event for Process 1
+Dispatch 1
+At time 146, TIMEOUT Event for Process 1
+Dispatch 1
+At time 149, TIMEOUT Event for Process 1
+Dispatch 1
+At time 152, TIMEOUT Event for Process 1
+Dispatch 1
+At time 155, TIMEOUT Event for Process 1
+Dispatch 1
+At time 158, TIMEOUT Event for Process 1
+Dispatch 1
+At time 161, TIMEOUT Event for Process 1
+Dispatch 1
+At time 164, TIMEOUT Event for Process 1
+Dispatch 1
+At time 167, TIMEOUT Event for Process 1
+Dispatch 1
+At time 170, TIMEOUT Event for Process 1
+Dispatch 1
+At time 173, TIMEOUT Event for Process 1
+Dispatch 1
+At time 174, BLOCK Event for Process 1
+At time 176, UNBLOCK Event for Process 1
+Dispatch 1
+At time 178, TIMEOUT Event for Process 1
+Dispatch 1
+At time 181, TIMEOUT Event for Process 1
+Dispatch 1
+At time 184, TIMEOUT Event for Process 1
+Dispatch 1
+At time 187, TIMEOUT Event for Process 1
+Dispatch 1
+At time 190, TIMEOUT Event for Process 1
+Dispatch 1
+At time 193, TIMEOUT Event for Process 1
+Dispatch 1
+At time 196, TIMEOUT Event for Process 1
+Dispatch 1
+At time 199, TIMEOUT Event for Process 1
+Dispatch 1
+At time 202, TIMEOUT Event for Process 1
+Dispatch 1
+At time 205, TIMEOUT Event for Process 1
+Dispatch 1
+At time 208, TIMEOUT Event for Process 1
+Dispatch 1
+At time 211, TIMEOUT Event for Process 1
+Dispatch 1
+At time 214, TIMEOUT Event for Process 1
+Dispatch 1
+At time 217, TIMEOUT Event for Process 1
+Dispatch 1
+At time 220, TIMEOUT Event for Process 1
+Dispatch 1
+At time 223, TIMEOUT Event for Process 1
+Dispatch 1
+At time 226, BLOCK Event for Process 1
+At time 228, UNBLOCK Event for Process 1
+Dispatch 1
+At time 231, TIMEOUT Event for Process 1
+Dispatch 1
+At time 232, EXIT Event for Process 1

@@ -1,0 +1,54 @@
+At time 0, ARRIVE Event for Process 0
+Dispatch 0
+At time 3, ARRIVE Event for Process 1
+At time 7, ARRIVE Event for Process 2
+At time 10, BLOCK Event for Process 0
+Dispatch 2
+At time 11, ARRIVE Event for Process 3
+At time 13, UNBLOCK Event for Process 0
+At time 13, BLOCK Event for Process 2
+Dispatch 3
+At time 15, UNBLOCK Event for Process 2
+At time 23, BLOCK Event for Process 3
+Dispatch 2
+At time 25, BLOCK Event for Process 2
+Dispatch 0
+At time 26, UNBLOCK Event for Process 2
+At time 35, BLOCK Event for Process 0
+Dispatch 2
+At time 38, BLOCK Event for Process 2
+Dispatch 1
+At time 39, UNBLOCK Event for Process 0
+At time 39, UNBLOCK Event for Process 2
+At time 43, UNBLOCK Event for Process 3
+At time 90, ARRIVE Event for Process 4
+At time 138, BLOCK Event for Process 1
+Dispatch 2
+At time 140, UNBLOCK Event for Process 1
+At time 140, BLOCK Event for Process 2
+Dispatch 0
+At time 142, EXIT Event for Process 0
+Dispatch 4
+At time 145, UNBLOCK Event for Process 2
+At time 145, BLOCK Event for Process 4
+Dispatch 2
+At time 146, EXIT Event for Process 2
+Dispatch 3
+At time 147, UNBLOCK Event for Process 4
+At time 166, EXIT Event for Process 3
+Dispatch 4
+At time 168, BLOCK Event for Process 4
+Dispatch 1
+At time 169, UNBLOCK Event for Process 4
+At time 218, BLOCK Event for Process 1
+Dispatch 4
+At time 220, UNBLOCK Event for Process 1
+At time 221, BLOCK Event for Process 4
+Dispatch 1
+At time 222, UNBLOCK Event for Process 4
+At time 225, EXIT Event for Process 1
+Dispatch 4
+At time 227, BLOCK Event for Process 4
+At time 232, UNBLOCK Event for Process 4
+Dispatch 4
+At time 233, EXIT Event for Process 4
