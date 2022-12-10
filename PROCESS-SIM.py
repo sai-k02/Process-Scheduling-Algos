@@ -295,14 +295,14 @@ class Simulation:
             # PEEK AT THE NEXT EVENT
             event: Event = self.eventQueue.peek()
 
-            print(event)
-
             # SET CLOCK TO THE NEXT EVENT
             clock = event.time
 
             # WHILE THE NEXT HAS A "TIME STAMP EQUAL TO THE CLOCK"
             while event.time == clock:
                 # print("==================================")
+                print(event)
+
                 # SET BOOL OF DISPATCH TO FALSE
                 dis_hap = False
 
@@ -324,6 +324,12 @@ class Simulation:
                         # ADD TO RUNNING
                         running.append(currProcess.pid)
 
+                        # CREATE NEW EVENT BY FINDING NEXT ACTIVITY TIME
+                        nextActivityTime = currProcess.activities[0]
+                        currProcess.activities.pop(0)
+                        self.eventQueue.push(
+                            Event("BLOCK", currProcess, nextActivityTime + clock))
+
                     else:
                         ready.append(currProcess.pid)
 
@@ -334,8 +340,11 @@ class Simulation:
                     # ADD TO BLOCKED
                     blocked.append(currProcess.pid)
 
-                    # NEW EVENT MUST COME FOR UNBLOCK
-
+                    # CREATE NEW EVENT FOR UNBLOCK
+                    nextActivityTime = currProcess.activities[0]
+                    currProcess.activities.pop(0)
+                    self.eventQueue.push(
+                        Event("UNBLOCK", currProcess, nextActivityTime + clock))
                 if event.type == "UNBLOCK":
                     # MOVE TO READY
                     ready.append(currProcess.pid)
@@ -357,36 +366,41 @@ class Simulation:
                     dis_hap = True
                     running.append(toRun)
 
-                # CREATE FUTURE EVENT
-                nextEvent = self.getFutureEvent(event, clock, dis_hap)
-                if nextEvent:
-                    self.eventQueue.push(nextEvent)
+                    # GO THROUGH THE PROCESSES AND CREATE A NEW EVENT FOR THAT ONE
+                    for process in self.processes:
+                        if (process.pid == toRun):
+                            nextActivityTime = process.activities[0]
+                            process.activities.pop(0)
 
-                print("CURRENT EVENT: ", event.type,
-                      event.process.pid, event.time)
-                if nextEvent:
-                    print("NEW EVENT: ", nextEvent.type,
-                          nextEvent.process.pid, nextEvent.time)
-                print("TIME: ", str(clock))
-                print()
-                print("RUNNING: ")
-                for element in running:
-                    print(element)
-                print()
-                print("BLOCKED: ")
-                for element in blocked:
-                    print(element)
-                print()
-                print("READY:  ")
-                for element in ready:
-                    print(element)
-                print()
-                print("EVENT QUEUE: ")
-                for element in self.eventQueue.queue:
-                    print(element)
-                print("\n\n")
+                            # WHEN DISPATCHING A PROCESS
+                            # CHECK IF WE NEED TO EXIT OR BLOCK AGAIN
+                            if (len(process.activities) != 0):
+                                self.eventQueue.push(
+                                    Event("BLOCK", process, nextActivityTime + clock))
+                            else:
+                                self.eventQueue.push(
+                                    Event("EXIT", process, nextActivityTime + clock))
 
-                print("==================================")
+                # print("TIME: ", str(clock))
+                # print()
+                # print("RUNNING: ")
+                # for element in running:
+                #     print(element)
+                # print()
+                # print("BLOCKED: ")
+                # for element in blocked:
+                #     print(element)
+                # print()
+                # print("READY:  ")
+                # for element in ready:
+                #     print(element)
+                # print()
+                # print("EVENT QUEUE: ")
+                # for element in self.eventQueue.queue:
+                #     print(element)
+                # print("\n\n")
+
+                # print("==================================")
 
                 # INCREASE TIME
                 clock += 1
