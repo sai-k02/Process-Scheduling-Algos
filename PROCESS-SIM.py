@@ -33,6 +33,12 @@ class Process:
         # DEFINE PRIORITY (FOR ALGORIMS THAT REQUIRE PRIORITY)
         self.priority = 0
 
+        # GET THE INITIAL PROCESSING TIME
+        self.remainingProcessingTime = 0
+        for index in range(0, len(activities)):
+            if index % 2 != 0:
+                self.remainingProcessingTime += activities[index]
+
     def getAvgRespTime(self):
 
         return sum(self.respTimeList) / len(self.respTimeList)
@@ -760,7 +766,7 @@ class Simulation:
 
         # WHILE THERE ARE NO MORE TO PROCESS
         while not self.eventQueue.empty():
-            print("==================================")
+            # print("==================================")
 
             # PEEK AT THE NEXT EVENT
             event: Event = self.eventQueue.peek()
@@ -852,7 +858,7 @@ class Simulation:
                     running.remove(currProcess.pid)
 
                     # RESET PRIORITY
-                    currProcess.priority = 0
+                    # currProcess.priority = 0
 
                     # ADD TO BLOCKED
                     blocked.append(currProcess.pid)
@@ -869,8 +875,8 @@ class Simulation:
                 if event.type == "UNBLOCK":
 
                     # REGARDLESS OF LEFTOVER TIME APPEND TO READY
-                    currProcess.priority = 0
-                    ready[0].append(currProcess.pid)
+                    # currProcess.priority = 0
+                    ready[currProcess.priority].append(currProcess.pid)
 
                     # SET LAST IN READY
                     currProcess.lastTimeInReady = clock
@@ -963,13 +969,230 @@ class Simulation:
                 # for element in ready:
                 #     print(element)
                 # print()
-                print("EVENT QUEUE: ")
-                for element in self.eventQueue.queue:
-                    print(element)
-                print(ready)
+                # print("EVENT QUEUE: ")
+                # for element in self.eventQueue.queue:
+                    # print(element)
+                # print(ready)
                 # print("\n\n")
 
-                print("==================================")
+                # print("==================================")
+
+                # UPDATE STATS FOR PROCESS
+
+                # INCREASE TIME
+                clock += 1
+
+    def SRT(self):
+        # SET UP THE SIMULATION RUN
+        clock = 0
+
+        # DEFINE THE QUANTUM
+        service_given = bool(self.scheduler.options["service_given"])
+        alpha = float(self.scheduler.options["alpha"])
+
+        # SET UP QUEUES
+        ready = []
+        blocked = []
+        running = []
+
+        # DEFINE A VARIABLE FOR KEEPING TRACK OF PREV DISPATCH TIME
+        prevDispatchTime = 0
+
+        # WHILE THERE ARE NO MORE TO PROCESS
+        while not self.eventQueue.empty():
+            # print("==================================")
+
+            # PEEK AT THE NEXT EVENT
+            event: Event = self.eventQueue.peek()
+
+            # SET CLOCK TO THE NEXT EVENT
+            clock = event.time
+
+            # WHILE THE NEXT HAS A "TIME STAMP EQUAL TO THE CLOCK"
+            while event.time == clock:
+                # print("==================================")
+                # print(event)
+
+                # GET THE NEXT EVENT
+                event: Event = self.eventQueue.pop()
+
+                # DEFINE THE PROCESS
+                currProcess: Process = event.process
+
+                # DETERMINE WHAT TO DO ON ARRIVE
+                if event.type == "ARRIVE":
+                    # CHECK TO SEE IF ANOTHER PROCESS IS CURRENTLY RUNNING
+                    if (len(running) == 0):
+                        # DISPATCH
+                        # print("Dispatch", currProcess.pid)
+
+                        # CHECK IF FIRST TIME RUNNING THE PROCESS
+                        if (currProcess.touchedCPU == False):
+                            currProcess.touchedCPU = True
+                            currProcess.startTime = clock
+
+                        # UPDATE PREV DISPATCH TIME
+                        prevDispatchTime = clock
+
+                        # UPDATE RESPONSE TIME
+                        currProcess.respTimeList.append(
+                            clock - currProcess.lastTimeInReady)
+
+                        # ADD TO RUNNING
+                        running.append(currProcess.pid)
+
+                        ''' CREATE A NEW EVENT (HANDLE THE THREE CASES FOR VIRTUAL ROUND ROBIN)'''
+
+                        # DEFINE THE TIME FOR THAT NEW EVENT
+                        nextActivityTime = currProcess.activities[0]
+
+                        # ACTIVITIES POP
+                        currProcess.activities.pop(0)
+                        self.eventQueue.push(
+                            Event("BLOCK", currProcess, nextActivityTime + clock))
+
+                    else:
+                        # CHECK IF WE ARE BIGGER THAN CURRENT RUNNING PROCESS
+                        process = None
+                        for processElement in self.processes:
+                            if processElement.pid == running[0]:
+                                process = processElement
+                                break
+
+                        if (currProcess.remainingProcessingTime > (process).remainingProcessingTime):
+                            # CREATE TIMEOUT EVENT
+                            self.eventQueue.push(
+                                Event("TIMEOUT", running[0], clock))
+
+                            # DEFINE THE TIME FOR THAT NEW EVENT
+                            nextActivityTime = currProcess.activities[0]
+
+                            # print("Dispatch ", currProcess.pid)
+
+                            # ACTIVITIES POP
+                            currProcess.activities.pop(0)
+                            currProcess.leftOverProcessingTime -= nextActivityTime
+
+                            self.eventQueue.push(
+                                Event("BLOCK", currProcess, nextActivityTime + clock))
+
+                        # DO THIS IF WE ARE NOTT BIGGER
+                        ready.append(currProcess.pid)
+
+                        # SET LAST IN READY
+                        currProcess.lastTimeInReady = clock
+
+                if event.type == "TIMEOUT":
+                    running.remove(currProcess.pid)
+
+                    # UPDATE SERVICE TIME
+                    currProcess.serviceTime += clock-prevDispatchTime
+
+                    # SET LAST IN READY
+                    currProcess.lastTimeInReady = clock
+
+                if event.type == "BLOCK":
+                    # MOVE THE PROCESS FROM RUNNING TO BLOCKED
+                    running.remove(currProcess.pid)
+
+                    # ADD TO BLOCKED
+                    blocked.append(currProcess.pid)
+
+                    # UPDATE SERVICE TIME
+                    currProcess.serviceTime += clock-prevDispatchTime
+                    prevDispatchTime = 0
+
+                    '''CREATE NEW EVENT FOR UNBLOCK'''
+                    nextActivityTime = currProcess.activities[0]
+                    currProcess.activities.pop(0)
+                    self.eventQueue.push(
+                        Event("UNBLOCK", currProcess, nextActivityTime + clock))
+                if event.type == "UNBLOCK":
+
+                    # REGARDLESS OF LEFTOVER TIME APPEND TO READY
+                    ready[currProcess.priority].append(currProcess.pid)
+
+                    # SET LAST IN READY
+                    currProcess.lastTimeInReady = clock
+
+                    # REMOVE FROM BLOCKED
+                    blocked.remove(currProcess.pid)
+
+                if event.type == "EXIT":
+                    # REMOVE FROM THE RUNNING QUEUE
+                    running.remove(currProcess.pid)
+
+                    # UPDATE SERVICE TIME
+                    currProcess.serviceTime += clock-prevDispatchTime
+                    prevDispatchTime = 0
+
+                    # UPDATE FINISH TIME
+                    currProcess.finishTime = clock
+
+                # FIND A PROCESS IN READY QUEUES TO RUN
+                    if (len(ready[index]) > 0) and readyToRun == False:
+                        readyToRun = True
+                        break
+
+                # DISPATCHER
+                if (len(running) == 0) and (readyToRun == True):
+                    toRun = ready.pop(0)
+
+                    print("Dispatch", toRun)
+
+                    # SET THE PREVIOUS TIME WE DISPATCH A PROCESS
+                    prevDispatchTime = clock
+
+                    # ADD TO RUNNING QUEUE
+                    running.append(toRun)
+
+                    # GO THROUGH PROCESSES AND CREATE A NEW EVENT FOR CORRECT ONE
+                    for process in self.processes:
+                        if (process.pid == toRun):
+                            # ADD TO RESPONSE TIME
+                            process.respTimeList.append(
+                                clock - process.lastTimeInReady)
+
+                            # DEFINE THE NEXT ACTIVITY
+                            nextActivityTime = process.activities[0]
+
+                            # CHECK TO SEE IF WE NEED UPDATE THE START TIME
+                            # (THE FIRST TIME THE PROCESS HAS TOUCHED THE CPU)
+                            if (process.touchedCPU == False):
+                                process.touchedCPU = True
+                                process.startTime = clock
+
+                            process.activities.pop(0)
+
+                            if (len(process.activities) == 0):
+                                process.remainingProcessingTime -= nextActivityTime
+                                self.eventQueue.push(
+                                    Event("EXIT", process, nextActivityTime + clock))
+                            else:
+                                self.eventQueue.push(
+                                    Event("BLOCK", process, nextActivityTime + clock))
+
+                # print("TIME: ", str(clock))
+                # print()
+                # print("RUNNING: ")
+                # for element in running:
+                #     print(element)
+                # print()
+                # print("BLOCKED: ")
+                # for element in blocked:
+                #     print(element)
+                # print()
+                # print("READY:  ")
+                # for element in ready:
+                #     print(element)
+                # print()
+                # print("EVENT QUEUE: ")
+                # for element in self.eventQueue.queue:
+                    # print(element)
+                # print(ready)
+                # print("\n\n")
+
+                # print("==================================")
 
                 # UPDATE STATS FOR PROCESS
 
@@ -986,6 +1209,10 @@ class Simulation:
             self.VRR()
         if self.scheduler.algorithm == "FEEDBACK":
             self.FEEDBACK()
+        if self.scheduler.algorithm == "SRT":
+            self.SRT()
+        if self.scheduler.algorithm == "HRRN":
+            print("HRRN not implemented")
         self.printStatistics()
 
 
@@ -997,6 +1224,5 @@ EVENT_TYPE_PRIORITY = {
     "EXIT": 4
 }
 
-# sim = Simulation(sys.argv[1], sys.argv[2])
-sim = Simulation("sample-runs/feedback.sf", "sample-runs/example.pf")
+sim = Simulation(sys.argv[1], sys.argv[2])
 sim.run()

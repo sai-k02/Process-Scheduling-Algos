@@ -39,32 +39,32 @@ At time 39, BLOCK Event for Process 0
 Dispatch 1
 At time 42, UNBLOCK Event for Process 0
 At time 42, TIMEOUT Event for Process 1
-Dispatch 0
-At time 45, TIMEOUT Event for Process 0
-Dispatch 0
-At time 48, TIMEOUT Event for Process 0
 Dispatch 3
-At time 49, BLOCK Event for Process 3
-Dispatch 1
-At time 52, TIMEOUT Event for Process 1
+At time 43, BLOCK Event for Process 3
 Dispatch 0
-At time 55, TIMEOUT Event for Process 0
+At time 46, TIMEOUT Event for Process 0
 Dispatch 1
-At time 58, TIMEOUT Event for Process 1
+At time 49, TIMEOUT Event for Process 1
 Dispatch 0
-At time 59, BLOCK Event for Process 0
+At time 52, TIMEOUT Event for Process 0
 Dispatch 1
-At time 62, TIMEOUT Event for Process 1
+At time 55, TIMEOUT Event for Process 1
+Dispatch 0
+At time 58, TIMEOUT Event for Process 0
 Dispatch 1
-At time 63, UNBLOCK Event for Process 0
+At time 61, TIMEOUT Event for Process 1
+Dispatch 0
+At time 62, BLOCK Event for Process 0
+Dispatch 1
+At time 63, UNBLOCK Event for Process 3
 At time 65, TIMEOUT Event for Process 1
-Dispatch 0
-At time 67, EXIT Event for Process 0
-Dispatch 1
-At time 69, UNBLOCK Event for Process 3
-At time 70, TIMEOUT Event for Process 1
 Dispatch 3
-At time 73, TIMEOUT Event for Process 3
+At time 66, UNBLOCK Event for Process 0
+At time 68, TIMEOUT Event for Process 3
+Dispatch 1
+At time 71, TIMEOUT Event for Process 1
+Dispatch 0
+At time 73, EXIT Event for Process 0
 Dispatch 3
 At time 76, TIMEOUT Event for Process 3
 Dispatch 1
@@ -188,10 +188,10 @@ Process 0:
 	Arrival Time: 0
 	Service Time: 22
 	Start Time: 0
-	Finish Time: 67
-	Turnaround Time: 67
-	Normalized Turnaround Time: 3.0454545454545454
-	Average Response Time: 4.222222222222222
+	Finish Time: 73
+	Turnaround Time: 73
+	Normalized Turnaround Time: 3.3181818181818183
+	Average Response Time: 4.888888888888889
 Process 1:
 	Arrival Time: 3
 	Service Time: 154
@@ -226,6 +226,6 @@ Process 4:
 	Average Response Time: 1.2
 
 System Wide Statistics: 
-Mean Turnaround Time: 90.800000
-Mean Normalized Turnaround Time: 2.581645
-Mean Average Response Time: 2.654187
+Mean Turnaround Time: 92.000000
+Mean Normalized Turnaround Time: 2.636190
+Mean Average Response Time: 2.787520
